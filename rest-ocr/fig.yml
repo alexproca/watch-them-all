@@ -1,0 +1,27 @@
+rabbitmq:
+  image: tutum/rabbitmq
+  dns: 8.8.8.8
+  # ports:
+  # 	- "5672:5672" 
+  # 	- "15672:15672"
+  environment:
+    - "RABBITMQ_PASS=1234"
+
+openocr:
+  image: tleyden5iwx/open-ocr
+  dns: 8.8.8.8
+  links:
+    - rabbitmq
+  ports:
+    - "9292:9292"
+  command: open-ocr-httpd -amqp_uri "amqp://admin:1234@rabbitmq/" -http_port 9292
+
+openocrworker:
+  image: tleyden5iwx/open-ocr
+  dns: 8.8.8.8
+  links:
+    - rabbitmq
+  command: open-ocr-worker -amqp_uri "amqp://admin:1234@rabbitmq/"
+
+
+
