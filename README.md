@@ -1,2 +1,2 @@
 # watch-them-all
-Faci prostii? Vrem să știm
+OCR-ize pdf documents then add text into an elasticsearch
